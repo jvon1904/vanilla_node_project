@@ -1,7 +1,7 @@
 const { pool } = require("../config/db");
 
 // #Create POST /products
-async function insertData({ name, description, price }) {
+async function create({ name, description, price }) {
   const query = `INSERT INTO products (name, description, price)
                  VALUES ( $1, $2, $3)
                  RETURNING id, name, description, price`;
@@ -21,8 +21,8 @@ async function insertData({ name, description, price }) {
 }
 
 // #Index GET /products
-async function retrieveData() {
-  const query = `SELECT * FROM products;`;
+async function all() {
+  const query = `SELECT * FROM products ORDER BY id;`;
   try {
     const result = await pool.query(query);
     console.log(result.rows);
@@ -42,7 +42,7 @@ async function retrieveData() {
 }
 
 // #Show GET /products/:id
-async function retrieveDataById(id) {
+async function find(id) {
   const query = `SELECT * FROM products WHERE products.id = $1`;
   try {
     const result = await pool.query(query, [id]);
@@ -60,7 +60,7 @@ async function retrieveDataById(id) {
 }
 
 // PUT /products/:id
-async function alterData(id, { name, description, price }) {
+async function update(id, { name, description, price }) {
   let query = `UPDATE products SET name = $1, description = $2, price = $3
                WHERE id = $4
                RETURNING id, name, description, price`;
@@ -80,7 +80,7 @@ async function alterData(id, { name, description, price }) {
 }
 
 // DELETE  /products/:id
-async function deleteData(id) {
+async function remove(id) {
   let query = `DELETE FROM products WHERE id = $1
                RETURNING id, name, description, price`;
   try {
@@ -98,12 +98,10 @@ async function deleteData(id) {
   }
 }
 
-retrieveData();
-
 module.exports = {
-  insertData,
-  retrieveData,
-  retrieveDataById,
-  alterData,
-  deleteData,
+  create,
+  all,
+  find,
+  update,
+  remove,
 };
