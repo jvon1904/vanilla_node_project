@@ -11,9 +11,24 @@ const {
   deleteProduct,
 } = require("./controllers/productController");
 const { getIdParam, invalidRoute } = require("./helperMethods");
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.SERVER_PORT || 5000;
 
 const server = http.createServer(function (request, response) {
+  if (request.method === "OPTIONS") {
+    response.setHeader("Access-Control-Allow-Origin", "*");
+    response.setHeader(
+      "Access-Control-Allow-Methods",
+      "HEAD, OPTIONS, GET, PUT, POST, DELETE"
+    );
+    response.setHeader(
+      "Access-Control-Allow-Headers",
+      "Referer, sec-ch-ua, sec-ch-ua-mobile, sec-ch-ua-platform, User-Agent"
+    );
+    response.setHeader("Content-Type", "application/json");
+    response.writeHead(200);
+    response.end();
+    return;
+  }
   if (request.method === "GET") {
     if (request.url.match(/^\/api\/products[\/]?$/g)) {
       getProducts(request, response);

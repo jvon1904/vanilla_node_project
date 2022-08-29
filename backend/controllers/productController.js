@@ -6,7 +6,10 @@ async function getProduct(request, response, id) {
   try {
     const result = await Product.find(id);
     if (result.data.length === 0) {
-      response.writeHead(404, { "Content-Type": "application/json" });
+      response.writeHead(404, {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "http://127.0.0.1:5500",
+      });
       response.end(
         JSON.stringify({
           success: false,
@@ -14,7 +17,10 @@ async function getProduct(request, response, id) {
         })
       );
     } else {
-      response.writeHead(200, { "Content-Type": "application/json" });
+      response.writeHead(200, {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "http://127.0.0.1:5500",
+      });
       response.end(JSON.stringify(result));
     }
   } catch (error) {
@@ -27,7 +33,10 @@ async function getProduct(request, response, id) {
 async function getProducts(request, response) {
   try {
     const result = await Product.all();
-    response.writeHead(200, { "Content-Type": "application/json" });
+    response.writeHead(200, {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "http://127.0.0.1:5500",
+    });
     response.end(JSON.stringify(result));
   } catch (error) {
     console.log(error);
@@ -40,7 +49,10 @@ async function createProduct(request, response, body) {
   const data = JSON.parse(body);
   try {
     const result = await Product.create(data);
-    response.writeHead(201, { "Content-Type": "application/json" });
+    response.writeHead(201, {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "http://127.0.0.1:5500",
+    });
     response.end(JSON.stringify(result));
   } catch (error) {
     console.log(error);
@@ -53,7 +65,10 @@ async function updateProduct(request, response, id, body) {
   const data = JSON.parse(body);
   try {
     const result = await Product.update(id, data);
-    response.writeHead(200, { "Content-Type": "application/json" });
+    response.writeHead(200, {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "http://127.0.0.1:5500",
+    });
     response.end(JSON.stringify(result));
   } catch (error) {
     console.log(error);
@@ -66,7 +81,10 @@ async function updateProduct(request, response, id, body) {
   const data = JSON.parse(body);
   try {
     const result = await Product.update(id, data);
-    response.writeHead(200, { "Content-Type": "application/json" });
+    response.writeHead(200, {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "http://127.0.0.1:5500",
+    });
     response.end(JSON.stringify(result));
   } catch (error) {
     console.log(error);
@@ -78,7 +96,15 @@ async function updateProduct(request, response, id, body) {
 async function deleteProduct(request, response, id) {
   try {
     const result = await Product.remove(id);
-    response.writeHead(200, { "Content-Type": "application/json" });
+    console.log(request);
+    response.writeHead(200, {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Methods": "HEAD, OPTIONS, GET, PUT, POST, DELETE",
+      "Access-Control-Allow-Headers":
+        "Referer, sec-ch-ua, sec-ch-ua-mobile, sec-ch-ua-platform, User-Agent",
+      "Content-Type": "application/json",
+    });
     response.end(JSON.stringify(result));
   } catch (error) {
     console.log(error);
