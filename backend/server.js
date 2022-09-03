@@ -10,7 +10,11 @@ const {
   updateProduct,
   deleteProduct,
 } = require("./controllers/productController");
-const { getIdParam, invalidRoute } = require("./helperMethods");
+const {
+  getIdParam,
+  parseURLParameters,
+  invalidRoute,
+} = require("./helperMethods");
 const PORT = process.env.SERVER_PORT || 5000;
 
 const server = http.createServer(function (request, response) {
@@ -22,7 +26,7 @@ const server = http.createServer(function (request, response) {
     );
     response.setHeader(
       "Access-Control-Allow-Headers",
-      "Referer, sec-ch-ua, sec-ch-ua-mobile, sec-ch-ua-platform, User-Agent"
+      "Referer, sec-ch-ua, sec-ch-ua-mobile, sec-ch-ua-platform, User-Agent, Content-Type"
     );
     response.setHeader("Content-Type", "application/json");
     response.writeHead(200);
@@ -47,6 +51,12 @@ const server = http.createServer(function (request, response) {
         })
         .on("end", () => {
           body = Buffer.concat(body).toString();
+          if (
+            request.headers["content-type"] ===
+            "application/x-www-form-urlencoded"
+          ) {
+            body = parseURLParameters(body);
+          }
           createProduct(request, response, body);
         });
     } else {

@@ -98,6 +98,12 @@ select {
   width: 600px;
   margin: 1rem;
   padding: 1rem;
+  min-height: 100px;
+  transition: min-height 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition: padding 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition: display 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+  border-radius: 5px;
+  box-shadow: 1px 5px 10px green;
 }
 .product-attributes {
   display: flex;
@@ -113,6 +119,7 @@ select {
   align-items: center;
   justify-content: center;
   color: white;
+  border-radius: 2px;
 }
 .btn-remove:hover {
   background-color: darkred;
@@ -129,4 +136,26 @@ div.btn-remove > div {
 div.btn-remove > div:nth-child(2) {
   transform: rotate(-45deg);
   top: -5px;
+}
+div.fading-out > div {
+  display: none;
+}
+.fading-out {
+  position: relative;
+  animation: 0.5s fading-out;
+}
+@keyframes fading-out {
+  0% {
+    /* padding: 1rem; */
+    left: 0px;
+    /* min-height: 100px; */
+    /* opacity: 100%; */
+  }
+  100% {
+    left: 1000px;
+    min-height: 0px;
+    padding: 0;
+    opacity: 0%;
+    margin: 0;
+  }
 }

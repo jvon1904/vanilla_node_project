@@ -25,8 +25,6 @@ async function all() {
   const query = `SELECT * FROM products ORDER BY id;`;
   try {
     const result = await pool.query(query);
-    console.log(result.rows);
-
     return {
       success: true,
       method: result.command,

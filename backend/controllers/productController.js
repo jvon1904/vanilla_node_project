@@ -1,3 +1,4 @@
+const { parse } = require("dotenv");
 const Product = require("../models/Product");
 
 // @desc gets a product by id
@@ -24,7 +25,7 @@ async function getProduct(request, response, id) {
       response.end(JSON.stringify(result));
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
@@ -39,23 +40,22 @@ async function getProducts(request, response) {
     });
     response.end(JSON.stringify(result));
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
 // @desc creates a product
 // @route POST /api/products
 async function createProduct(request, response, body) {
-  const data = JSON.parse(body);
   try {
-    const result = await Product.create(data);
+    const result = await Product.create(JSON.parse(body));
     response.writeHead(201, {
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "http://127.0.0.1:5500",
     });
     response.end(JSON.stringify(result));
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
@@ -71,7 +71,7 @@ async function updateProduct(request, response, id, body) {
     });
     response.end(JSON.stringify(result));
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
@@ -87,7 +87,7 @@ async function updateProduct(request, response, id, body) {
     });
     response.end(JSON.stringify(result));
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
@@ -96,7 +96,6 @@ async function updateProduct(request, response, id, body) {
 async function deleteProduct(request, response, id) {
   try {
     const result = await Product.remove(id);
-    console.log(request);
     response.writeHead(200, {
       "Access-Control-Allow-Origin": "*",
       "Content-Type": "application/json",
@@ -107,7 +106,7 @@ async function deleteProduct(request, response, id) {
     });
     response.end(JSON.stringify(result));
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
