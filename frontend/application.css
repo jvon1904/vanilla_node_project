@@ -76,7 +76,8 @@ select {
 .wrapper {
   height: 100vh;
   width: 100%;
-  background-color: black;
+  padding-left: 100px;
+  background-color: white;
   font-family: "Alegreya Sans", sans-serif;
   color: green;
   overflow: scroll;
@@ -85,9 +86,41 @@ select {
   text-align: center;
   font-size: 5rem;
 }
+#product-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 1rem;
+}
+.form-container {
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.form-container > div {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+input[type="text"] {
+  width: 400px;
+}
+.button {
+  background-color: green;
+  color: white;
+  border-radius: 5px;
+  font-size: 1.5rem;
+}
+.button:hover {
+  background-color: darkgreen;
+  cursor: pointer;
+}
 #products-container {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   flex-direction: column;
 }
 .product-container {
@@ -109,6 +142,33 @@ select {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+.product-attributes > p {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0.5rem;
+}
+.btn-edit {
+  margin-left: auto;
+  margin-right: 1rem;
+  border: 1px solid orange;
+  color: orange;
+  height: 20px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-edit:hover {
+  border: 2px solid orange;
+  cursor: pointer;
+}
+.hidden {
+  display: none;
 }
 .btn-remove {
   width: 20px;
@@ -146,10 +206,7 @@ div.fading-out > div {
 }
 @keyframes fading-out {
   0% {
-    /* padding: 1rem; */
     left: 0px;
-    /* min-height: 100px; */
-    /* opacity: 100%; */
   }
   100% {
     left: 1000px;

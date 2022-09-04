@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <title>Product Inventory</title>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,26 +16,31 @@
   </head>
   <body>
     <div class="wrapper">
-      <h1 class="page-title">Hello World!</h1>
+      <h1 class="page-title">Product Inventory!</h1>
       <form id="product-form">
-        <h1>New Product</h1>
-        <div>
-          <label for="product-name">Name:</label>
-          <input type="text" name="name" id="product-name" />
+        <div class="form-container">
+          <h2>New Product</h2>
+          <div>
+            <label for="product-name">Name:</label>
+            <input type="text" name="name" id="product-name" />
+          </div>
+          <div>
+            <label for="product-description">Description:</label>
+            <input type="text" name="description" id="product-description" />
+          </div>
+          <div>
+            <label for="product-price">Price:</label>
+            <input type="text" name="price" id="product-price" />
+          </div>
+          <div>
+            <button class="button" type="button" id="product-submit">
+              Submit
+            </button>
+          </div>
         </div>
-        <div>
-          <label for="product-description">Description:</label>
-          <input type="text" name="description" id="product-description" />
-        </div>
-        <div>
-          <label for="product-price">Price:</label>
-          <input type="text" name="price" id="product-price" />
-        </div>
-        <button type="button" id="product-submit">Submit</button>
       </form>
       <div id="products-container"></div>
     </div>
   </body>
-  <script src="Product.js"></script>
   <script src="index.js"></script>
 </html>
