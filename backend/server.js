@@ -88,7 +88,8 @@ const server = http.createServer(function (request, response) {
     invalidRoute(response);
   }
 });
-
+console.log(dotenv.config());
+console.log(PORT);
 server.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });

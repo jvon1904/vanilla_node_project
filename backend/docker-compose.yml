@@ -1,0 +1,29 @@
+version: "2.10.2"
+services:
+  node_app:
+    container_name: node_app
+    build:
+      context: .
+      dockerfile: .Dockerfile
+    depends_on:
+      - postgres
+    environment:
+      - DB_USER=node
+      - DB_PASSWORD=password
+      - DB_NAME=node
+      - DB_PORT=5432
+      - DB_HOST=localhost
+      - SERVER_PORT=8080
+    ports:
+      - "8080:8080"
+  postgres:
+    container_name: postgres
+    image: "postgres:14"
+    environment:
+      - POSTGRES_USER=node
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=node
+    ports:
+      - "5432:5432"
+    # volumes:
+    #   - postgres:/var/lib/postgresql/data/

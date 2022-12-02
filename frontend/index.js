@@ -32,6 +32,10 @@
       editButton.childNodes[0].innerText = "Edit";
       editButton.onclick = editProduct;
 
+      const productButtonContainer = document.createElement("div");
+      productButtonContainer.classList.add("product-button-container");
+      productButtonContainer.append(editButton, removeButton);
+
       const productAttributes = document.createElement("div");
       productAttributes.classList.add("product-attributes");
 
@@ -49,16 +53,16 @@
 
       productAttributes.append(name, description, price);
 
-      productContainer.append(removeButton, editButton, productAttributes);
+      productContainer.append(productButtonContainer, productAttributes);
       productContainer.onmouseover = (e) => {
         if (e.target.classList.contains("product-container")) {
-          const editButton = e.target.childNodes[1];
+          const editButton = e.target.childNodes[0].childNodes[0];
           editButton.classList.remove("hidden");
         }
       };
       productContainer.onmouseleave = (e) => {
         if (e.target.classList.contains("product-container")) {
-          const editButton = e.target.childNodes[1];
+          const editButton = e.target.childNodes[0].childNodes[0];
           editButton.classList.add("hidden");
         }
       };
@@ -107,12 +111,12 @@
     const target = e.target.classList.contains("btn-edit")
       ? e.target
       : e.target.parentElement;
-    const container = target.parentElement;
+    const container = target.parentElement.parentElement;
     if (target.childNodes[0].innerText === "Submit") {
       return updateProduct(container);
     }
     target.childNodes[0].innerText = "Submit";
-    for (p of container.childNodes[2].childNodes) {
+    for (p of container.childNodes[1].childNodes) {
       const attribute = p.classList[0].split("-")[1];
       const value = p.innerText.split(": ")[1];
       const label = document.createElement("label");
@@ -127,7 +131,7 @@
   async function updateProduct(container) {
     const id = container.getAttribute("data-id");
     const productObject = {};
-    for (p of container.childNodes[2].childNodes) {
+    for (p of container.childNodes[1].childNodes) {
       const attribute = p.childNodes[0].innerText;
       const value = p.childNodes[1].value;
       productObject[attribute] = value;
@@ -149,7 +153,7 @@
     const target = e.target.classList.contains("btn-remove")
       ? e.target
       : e.target.parentElement;
-    const container = target.parentElement;
+    const container = target.parentElement.parentElement;
     const id = container.getAttribute("data-id");
     const url = `http://127.0.0.1:8080/api/products/${id}`;
     fetch(url, {
